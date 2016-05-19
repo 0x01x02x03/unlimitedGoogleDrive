@@ -15,6 +15,8 @@ public class Main {
             Drive drive = Singletons.getDriveService();
             DriveUtils driveUtils = new DriveUtils(drive);
             System.out.println("Free space is " + driveUtils.getFreeSpace());
+            System.out.println("Root folder is " + driveUtils.getRootFolderID());
+
 
             while(true) {
                 // Read a path from stdIn.
@@ -23,9 +25,9 @@ public class Main {
                 if (path.equals("end") || path.isEmpty()) {
                     break;
                 }
-                driveUtils.uploadFile(path);
+                driveUtils.uploadPath(path);
             }
-            System.out.println("Free space is " + driveUtils.getFreeSpace());
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

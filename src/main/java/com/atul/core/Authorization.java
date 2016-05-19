@@ -28,11 +28,11 @@ public class Authorization {
                             + "into src/main/resources/client_secrets.json");
             System.exit(1);
         }
-        System.out.println("WOAAHHHH");
+
         // set up authorization code flow
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                Singletons.httpTransport, Singletons.JSON_FACTORY, clientSecrets,
-                Collections.singleton(DriveScopes.DRIVE_FILE)).setDataStoreFactory(Singletons.dataStoreFactory)
+                Singletons.httpTransport, Singletons.JSON_FACTORY, clientSecrets,DriveScopes.all()
+                ).setDataStoreFactory(Singletons.dataStoreFactory)
                 .build();
         // authorize
         return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
