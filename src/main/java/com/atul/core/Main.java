@@ -1,6 +1,6 @@
 package com.atul.core;
 
-import com.atul.config.Singletons;
+import com.atul.config.Configuration;
 import com.google.api.services.drive.Drive;
 
 import java.util.Scanner;
@@ -12,7 +12,8 @@ public class Main {
     private static final Long freeSpaceThreshold = 1000000000L; // 1GB.
     public static void main(String [] args ) {
         try {
-            Drive drive = Singletons.getDriveService();
+            Configuration.setUpDrives();
+/*
             DriveUtils driveUtils = new DriveUtils(drive);
             System.out.println("Free space is " + driveUtils.getFreeSpace());
             System.out.println("Root folder is " + driveUtils.getRootFolderID());
@@ -27,7 +28,7 @@ public class Main {
                 }
                 driveUtils.uploadPath(path);
             }
-
+*/
         } catch (Exception ex) {
             ex.printStackTrace();
         }

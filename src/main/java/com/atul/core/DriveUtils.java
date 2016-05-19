@@ -19,15 +19,17 @@ import java.util.Scanner;
 public class DriveUtils {
 
     private Drive drive;
+    public long freeSpace;
 
     public DriveUtils(Drive drive) {
         this.drive = drive;
+        getFreeSpace();
     }
 
     public String getRootFolderID() {
         String root = null;
         try {
-            root = drive.files().get("0AMfX02Qydr5yUk9PVA").setFields("id").execute().getId();
+            root = drive.files().get("root").setFields("id").execute().getId();
             System.out.println("root " + root);
         } catch (Exception ex) {
             System.out.println("Exception while getting root folder ");
@@ -37,7 +39,7 @@ public class DriveUtils {
     }
 
     public Long getFreeSpace() {
-        Long freeSpaceKb = 0L;
+        Long freeSpace = 0L;
         try {
             About about = drive.about().get()
                     .setFields("storageQuota, user")
@@ -45,13 +47,14 @@ public class DriveUtils {
 
             System.out.println("Current user name: " + about.getUser().getDisplayName());
 
-            freeSpaceKb = (about.getStorageQuota().getLimit() - about.getStorageQuota().getUsage());
-            System.out.println("Free quota (kbytes): " + freeSpaceKb);
+            freeSpace = (about.getStorageQuota().getLimit() - about.getStorageQuota().getUsage());
+            this.freeSpace = freeSpace;
+            System.out.println("Free quota (kbytes): " + freeSpace);
         } catch (Exception ex) {
             System.out.println("Exception while getting free space");
             ex.printStackTrace();
         }
-        return freeSpaceKb;
+        return freeSpace;
     }
 
     public String uploadFolder(String path, String parentID) {
